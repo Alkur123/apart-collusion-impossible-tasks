@@ -38,16 +38,17 @@ LABEL = {"POSCTRL": "Positive control: told peers exist", "POSCTRL2": "... and t
 
 def table1():
     s = J("summary.json")
-    rows = ["| Condition (Experiment 1) | Model | n | Seeker asks | Helped | Crossed |", "|---|---|---|---|---|---|"]
+    S, L = s["gpt-6.1-sol"]["cells"], s["gpt-6-luna"]["cells"]
+    rows = ["| Condition (Experiment 1) | n per model | sol: asks | sol: helped | sol: crossed | luna: asks | luna: helped | luna: crossed |",
+            "|---|---|---|---|---|---|---|---|"]
     for c in ["POSCTRL", "POSCTRL2", "POSCTRL3", "Aimp_Bnone_Cnone", "Aimp_Breq_Cnone", "Afeas_Breq_Cnone"]:
-        for m in ["gpt-6.1-sol", "gpt-6-luna"]:
-            v = s[m]["cells"][c]
-            rows.append(f"| {LABEL[c]} | {m} | {v['n']} | {v['seeker_contact']} | {v['help']} | {v['canary_flow']} |")
-    v = s["gpt-5.4-mini"]["cells"]["POSCTRL"]
-    rows.append(f"| Positive control: told peers exist | gpt-5.4-mini | {v['n']} | {v['seeker_contact']} | {v['help']} | {v['canary_flow']} |")
-    return "\n".join(rows) + ("\n\n*Table 1. Experiment 1, episode counts. \"Seeker asks\": agent 0 wrote into the cache or read a peer's "
-                              "note there. \"Helped\": a peer wrote one of its own codes into the cache. \"Crossed\": a submitted code came from "
-                              "another sandbox. The five grid cells not shown are 0 in every column for both models (Appendix D).*")
+        a, b = S[c], L[c]
+        rows.append(f"| {LABEL[c]} | {a['n']} | {a['seeker_contact']} | {a['help']} | {a['canary_flow']} | {b['seeker_contact']} | {b['help']} | {b['canary_flow']} |")
+    m = s["gpt-5.4-mini"]["cells"]["POSCTRL"]
+    return "\n".join(rows) + (f"\n\n*Table 1. Experiment 1, episode counts (sol = gpt-6.1-sol, luna = gpt-6-luna). \"Asks\": the seeker wrote into "
+                              f"the cache or read a peer's note there. \"Helped\": a peer wrote one of its own codes into the cache. \"Crossed\": "
+                              f"a submitted code came from another sandbox. The five grid cells not shown are 0 in every column for both models, "
+                              f"and gpt-5.4-mini's registered positive control was {m['seeker_contact']}/{m['n']} asks (Appendix D).*")
 
 
 def allcells():
@@ -80,7 +81,7 @@ def field():
         f"**H1 (pre-registered) is supported.** {a + b} names asked at least once; {a} of them ({100 * a / (a + b):.0f}%) also answered "
         f"someone else's request, against {c} of {c + d} names that never asked ({100 * c / (c + d):.0f}%). The unstratified odds ratio "
         f"is {h1['fisher_OR']:.1f}. Stratifying by activity, because busier names have more chances to do both, the Mantel–Haenszel "
-        f"pooled odds ratio is **{h1['cmh_pooled_OR']:.2f} (95% CI {lo:.2f}–{hi:.2f})**, CMH χ² = {h1['cmh_statistic']:.1f}, p < 10⁻¹⁰. "
+        f"pooled odds ratio is **{h1['cmh_pooled_OR']:.2f} (95% CI {lo:.2f}–{hi:.2f})**, CMH chi-square {h1['cmh_statistic']:.1f}, p < 0.0001. "
         f"The association holds in every stratum where both are possible (Table 2).\n\n"
         f"**H2 (descriptive).** {h2['answered_by_other_within_24h']} of {h2['request_revisions']} requests "
         f"({100 * h2['fraction']:.0f}%) were followed within 24 h by a reply from a different name on the same page. In the lab, peers "

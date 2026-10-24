@@ -107,19 +107,38 @@ def para(doc, text, style="normal", size=BODY_PT, indent=None, align=None, space
     return p
 
 
+def _borders(table):
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+    tblPr = table._tbl.tblPr
+    b = OxmlElement("w:tblBorders")
+    for edge in ("top", "bottom", "insideH"):
+        e = OxmlElement(f"w:{edge}")
+        e.set(qn("w:val"), "single"); e.set(qn("w:sz"), "4"); e.set(qn("w:color"), "BFBFBF")
+        b.append(e)
+    tblPr.append(b)
+
+
 def table(doc, rows):
     hdr = [c.strip() for c in rows[0].strip("|").split("|")]
     body = [[c.strip() for c in r.strip("|").split("|")] for r in rows[2:]]
     t = doc.add_table(rows=1 + len(body), cols=len(hdr))
-    t.style = doc.styles["Table Grid"] if "Table Grid" in [s.name for s in doc.styles] else t.style
-    for j, h in enumerate(hdr):
-        c = t.cell(0, j); c.text = ""
-        add_runs(c.paragraphs[0], f"**{h}**", 8.5)
-    for i, r in enumerate(body, start=1):
+    t.autofit = False
+    _borders(t)
+    total = 6.5
+    first = 2.3 if len(hdr) > 3 else total / len(hdr)
+    rest = (total - first) / max(1, len(hdr) - 1)
+    for j in range(len(hdr)):
+        for cell in t.columns[j].cells:
+            cell.width = Inches(first if j == 0 else rest)
+    for i, r in enumerate([hdr] + body):
         for j, v in enumerate(r):
             c = t.cell(i, j); c.text = ""
-            add_runs(c.paragraphs[0], v, 8.5)
-    doc.add_paragraph().paragraph_format.space_after = Pt(2)
+            p = c.paragraphs[0]
+            p.paragraph_format.space_after = Pt(0); p.paragraph_format.space_before = Pt(0)
+            p.paragraph_format.line_spacing = 1.0
+            add_runs(p, f"**{v}**" if i == 0 else v, 8)
+    doc.add_paragraph().paragraph_format.space_after = Pt(0)
 
 
 def build():

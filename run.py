@@ -212,8 +212,22 @@ def main():
             todo.append((ep, f))
     print(f"{len(todo)} episodes to run for {a.model}", flush=True)
 
+    import threading
+    price = {"gpt-6.1-sol": (2.00, 0.10, 10.00), "gpt-6-luna": (0.10, 0.01, 0.50)}.get(a.model, (5.0, 0.5, 30.0))
+    cap = float(os.environ.get("BUDGET_USD", "inf"))
+    spent = [0.0]
+    lock = threading.Lock()
+
     def job(ep, f):
+        with lock:
+            if spent[0] >= cap:
+                raise RuntimeError(f"BUDGET CAP reached (${spent[0]:.2f} >= ${cap:.2f}); episode not started")
         d = (run_responses_episode if uses_responses(a.model) else run_llm_episode)(a.model, ep)
+        u = d["usage"]
+        c = ((u["prompt"] - u.get("cached", 0)) * price[0] + u.get("cached", 0) * price[1] + u["completion"] * price[2]) / 1e6
+        with lock:
+            spent[0] += c
+            print(f"[budget] {a.model} spent ${spent[0]:.3f} of ${cap}", flush=True)
         tmp = f.with_suffix(".tmp")
         tmp.write_text(json.dumps(d, indent=1), encoding="utf-8")
         tmp.replace(f)

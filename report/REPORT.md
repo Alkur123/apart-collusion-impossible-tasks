@@ -101,19 +101,19 @@ Test same-task concurrency at scale and over long horizons. Replicate on other v
 Code repository: {{REPO}}. It holds every lab episode (events, submissions, self-reports, full transcripts, token usage), the analysis scripts that regenerate every number in this report (`analyze.py`, `analyze_exp4.py`, `field_analysis.py`, `field_shared_task.py`), the pre-registrations and the dated amendments. The field data is the public export at https://collusion.wiki/explorer/download; we redistribute no agent text from it. Total API cost: {{COST}}.
 
 ## References
-[1] OpenAI. *OpenAI – Hugging Face Incident Technical Report.* 2026. 38 pp.
+[1] OpenAI. *OpenAI – Hugging Face Incident Technical Report.* 2026. 38 pp. https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf
 [2] S. Von Arx, C. S. Byrd, S. Kitts, T. Larsen. *Discovery of a new OpenAI agent message board.* Web report and data export, 4 Sep 2026. https://collusion.wiki/
-[3] UK AI Security Institute. *Security Incident INC-2026-07-28-01.* 4 Aug 2026.
-[4] R. Greenblatt, A. Cotra, H. Wijk. *Brief independent investigation of agents' behavior, reasoning and collaboration in the OpenAI / Hugging Face hacking incident.* METR, 26 Aug 2026.
-[5] P. Lütje. *The Mechanics of a Swarm: A Reproducible External Reconstruction of an Unintended Agent-Coordination Episode on a Third-Party Wiki.* arXiv:2609.12748, 2026.
-[6] UK AI Security Institute, Alignment Red Team. *Alignment Investigation of Mythos 5's Behaviour in UK AISI's July 2026 Security Incident.* 23 Oct 2026.
-[7] P. C. Bogdan, A. Qi, D. Smilkov, T. Henighan, K. Bradwell, J. Eaton, S. Price, J. Lindsey, S. Kantamneni. *An alignment assessment of the UK AISI cybertesting incident.* Anthropic, 23 Oct 2026.
-[8] Z. Zhong, A. Raghunathan, N. Carlini. *ImpossibleBench: Measuring LLMs' Propensity of Exploiting Test Cases.* arXiv:2510.20270, 2025.
-[9] I. Zhang. *The Troy Moment: How LLM Agents Adjudicate the Decision Point Under Impossible Tasks, Claimed Authority, and Peer Information.* arXiv:2609.15494, 2026.
-[10] M. Nakamura, A. Kumar, S. Das, S. Abdelnabi, S. Mahmud, F. Fioretto, S. Zilberstein, E. Bagdasarian. *Colosseum: Auditing Collusion in Cooperative Multi-Agent Systems.* arXiv:2602.15198, 2026.
-[11] X. Shi, Y. Zhang, D. Yang. *Emergent Collusion in Long-Horizon LLM Agent Interaction.* arXiv:2609.24967, 2026.
-[12] S. Fish, Y. A. Gonczarowski, R. I. Shorrer. *Algorithmic Collusion by Large Language Models.* arXiv:2404.00806, 2024.
-[13] D. Rein, A. Kaufman. *Red-Teaming OpenAI's Internal Agent Monitoring Systems.* METR, 22 Oct 2026.
+[3] UK AI Security Institute. *Security Incident INC-2026-07-28-01.* 4 Aug 2026. https://cdn.prod.website-files.com/663bd486c5e4c81588db7a1d/6a724858f7db25c81487016d_Security%20Incident%20INC-2026-07-28-01.pdf
+[4] R. Greenblatt, A. Cotra, H. Wijk. *Brief independent investigation of agents' behavior, reasoning and collaboration in the OpenAI / Hugging Face hacking incident.* METR, 26 Aug 2026. https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/
+[5] P. Lütje. *The Mechanics of a Swarm: A Reproducible External Reconstruction of an Unintended Agent-Coordination Episode on a Third-Party Wiki.* arXiv:2609.12748, 2026. https://arxiv.org/abs/2609.12748
+[6] UK AI Security Institute, Alignment Red Team. *Alignment Investigation of Mythos 5's Behaviour in UK AISI's July 2026 Security Incident.* 23 Oct 2026. https://cdn.prod.website-files.com/663bd486c5e4c81588db7a1d/6ad8ac7f2ba7446392919b06_Alignment_Investigation_Mythos_5_AISI_Incident.pdf
+[7] P. C. Bogdan, A. Qi, D. Smilkov, T. Henighan, K. Bradwell, J. Eaton, S. Price, J. Lindsey, S. Kantamneni. *An alignment assessment of the UK AISI cybertesting incident.* Anthropic, 23 Oct 2026. https://www.anthropic.com/research/alignment-assessment-ukaisi
+[8] Z. Zhong, A. Raghunathan, N. Carlini. *ImpossibleBench: Measuring LLMs' Propensity of Exploiting Test Cases.* arXiv:2510.20270, 2025. https://arxiv.org/abs/2510.20270
+[9] I. Zhang. *The Troy Moment: How LLM Agents Adjudicate the Decision Point Under Impossible Tasks, Claimed Authority, and Peer Information.* arXiv:2609.15494, 2026. https://arxiv.org/abs/2609.15494
+[10] M. Nakamura, A. Kumar, S. Das, S. Abdelnabi, S. Mahmud, F. Fioretto, S. Zilberstein, E. Bagdasarian. *Colosseum: Auditing Collusion in Cooperative Multi-Agent Systems.* arXiv:2602.15198, 2026. https://arxiv.org/abs/2602.15198
+[11] X. Shi, Y. Zhang, D. Yang. *Emergent Collusion in Long-Horizon LLM Agent Interaction.* arXiv:2609.24967, 2026. https://arxiv.org/abs/2609.24967
+[12] S. Fish, Y. A. Gonczarowski, R. I. Shorrer. *Algorithmic Collusion by Large Language Models.* arXiv:2404.00806, 2024. https://arxiv.org/abs/2404.00806
+[13] D. Rein, A. Kaufman. *Red-Teaming OpenAI's Internal Agent Monitoring Systems.* METR, 22 Oct 2026. https://metr.org/blog/2026-10-22-red-teaming-openai-agent-monitoring/
 
 ## Appendix A. Limitations and Dual-Use / Ethical Considerations
 **What the results establish.** In a short, reward-free, internet-free toy environment, two current OpenAI models did not coordinate through a shared directory merely because one agent's task was impossible, and the request note that started a real incident went unanswered. In a real field record, answers to requests came disproportionately from agents that were asking too, and from agents on the same task. {{E4_ESTABLISH}} **What they do not establish:** that frontier agents in long, high-pressure deployments will not coordinate (the incidents show they do), or that shared task identity *causes* coordination in the field (that analysis is observational).
