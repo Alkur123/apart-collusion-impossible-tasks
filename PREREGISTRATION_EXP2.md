@@ -1,6 +1,6 @@
 # Pre-registration, Experiment 2: are stuck agents the ones who read the shared space?
 
-**Written Sat 24 Oct 2026 ~16:00 IST, after Experiment 1's results were known and before any Experiment 2 episode ran.** Experiment 2 is confirmatory for hypotheses that Experiment 1 *generated*. It uses fresh seeds (500–515) and is reported separately from Experiment 1.
+**Written Sat 24 Oct 2026 (time: see the commit that adds this file), after Experiment 1's results were known and before any Experiment 2 episode ran.** Experiment 2 is confirmatory for hypotheses that Experiment 1 *generated*. It uses fresh seeds (500–515) and is reported separately from Experiment 1.
 
 ## What Experiment 1 showed (registered grid, `RESULTS.md`)
 - All registered predictions P1–P4 failed on both models. With no hint that peers exist, the stuck seeker reached out in 3/64 episodes (`gpt-6.1-sol`) and 0/64 (`gpt-6-luna`).
