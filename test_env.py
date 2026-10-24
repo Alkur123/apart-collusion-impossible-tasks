@@ -96,6 +96,16 @@ def test_peers_start_late():
     assert "pandas version" in ep.task_prompt(1)
 
 
+def test_exp2_stuck_holders():
+    ep = Episode(False, True, False, 1, 500, holders_feasible=False, exp2=True)
+    assert ep.cell == "E2_Simp_Paware"
+    assert all(f"{home(i)}/data/station_{STATIONS[i]}.csv" not in ep.files for i in range(4))
+    assert f"{home(1)}/data/station_kappa.csv" in ep.files and f"{SHARED}/REQUEST.txt" in ep.files
+    assert "coordinate" in ep.system_prompt(2)
+    ep2 = Episode(False, True, False, 0, 500, holders_feasible=True, exp2=True)
+    assert ep2.cell == "E2_Sfeas_Pnone" and "coordinate" not in ep2.system_prompt(1)
+
+
 def test_holder_copy_differs_and_cells_differ():
     ep = Episode(True, False, False, False, seed=4)
     assert ep.canary[(SEEKER, "kappa")] != ep.canary[(HOLDER, "kappa")]

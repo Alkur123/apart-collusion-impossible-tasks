@@ -44,3 +44,7 @@ The unit is the episode, with seeds as replicates. Agents within an episode are 
 
 ## Analysis
 Per-cell rates with Wilson 95% intervals. P1, P2 and P4 use one-sided Fisher exact tests on pooled 2×2 tables, at α = 0.05, with no correction (the tests are pre-specified and few). Models are reported separately, and pooled only if they agree in direction. Every prediction is reported pass or fail, including failures. Refusals and empty submissions are reported as their own category.
+
+## Amendments (recorded before the data they affect)
+- **Amendment 1** (24 Oct, before any model call): interference and self-report outcomes; schedule slip; P5 dropped. See `docs/APART_COLLUSION_SPRINT_PLAN_2026-10.md` §12.
+- **Amendment 2** (24 Oct 15:10 IST, after unregistered smoke runs on seed 999, before any registered seed): staggered start, a reason to visit the cache, fabrication detector fix, models changed to `gpt-6.1-sol` / `gpt-6-luna`, two added positive controls, 16 seeds per cell, and the P0 → Plan B switch suspended. Same file, §12.

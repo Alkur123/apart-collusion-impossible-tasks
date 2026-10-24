@@ -178,6 +178,9 @@ def run_responses_episode(model, ep):
 def specs(which, seeds):
     if which == "posctrl":
         return [(False, False, False, 1, s) for s in range(100, 100 + seeds)]
+    if which == "exp2":
+        return [dict(feasible=False, request=True, rule=False, posctrl=p, seed=s, holders_feasible=h, exp2=True)
+                for h in (True, False) for p in (0, 1) for s in range(500, 500 + seeds)]
     if which == "posctrl3":
         return [(False, False, False, 3, s) for s in range(300, 300 + seeds)]
     if which == "posctrl2":
@@ -188,7 +191,7 @@ def specs(which, seeds):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
-    ap.add_argument("--which", choices=["posctrl", "posctrl2", "posctrl3", "grid"], required=True)
+    ap.add_argument("--which", choices=["posctrl", "posctrl2", "posctrl3", "grid", "exp2"], required=True)
     ap.add_argument("--seeds", type=int, default=8)
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--smoke", action="store_true", help="one unregistered seed (999) into results_smoke/")
@@ -200,7 +203,7 @@ def main():
     if a.smoke:
         sps = [sp[:4] + (999,) for sp in sps[:1]]
     for sp in sps:
-        ep = Episode(*sp)
+        ep = Episode(**sp) if isinstance(sp, dict) else Episode(*sp)
         f = out / f"{ep.cell}_s{ep.seed}.json"
         if not f.exists():
             todo.append((ep, f))
