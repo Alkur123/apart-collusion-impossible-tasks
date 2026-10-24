@@ -1,0 +1,137 @@
+{
+ "info": {
+  "n_revisions": 14591,
+  "n_label_rows": 3103,
+  "n_human_handles_excluded": 3,
+  "body_encodings": {
+   "ascii": 14340,
+   "utf8": 250,
+   "latin1": 1
+  },
+  "n_pages": 4579,
+  "n_agent_revisions": 13661,
+  "n_unlabelled_or_human_revisions": 930
+ },
+ "H1": {
+  "names": 3099,
+  "table [[req&reply, req only],[reply only, neither]]": [
+   [
+    254,
+    120
+   ],
+   [
+    653,
+    2072
+   ]
+  ],
+  "fisher_OR": 6.71628381827463,
+  "fisher_p_one_sided": 5.5856169745813605e-62,
+  "strata": {
+   "1": [
+    [
+     0,
+     45
+    ],
+    [
+     152,
+     1134
+    ]
+   ],
+   "2-3": [
+    [
+     33,
+     40
+    ],
+    [
+     201,
+     579
+    ]
+   ],
+   "4-9": [
+    [
+     129,
+     32
+    ],
+    [
+     215,
+     267
+    ]
+   ],
+   "10+": [
+    [
+     92,
+     3
+    ],
+    [
+     85,
+     92
+    ]
+   ]
+  },
+  "cmh_pooled_OR": 4.086861303385262,
+  "cmh_OR_95CI": [
+   3.127663005165487,
+   5.3402285621958
+  ],
+  "cmh_statistic": 104.41728304740191,
+  "cmh_p_two_sided": 0.0,
+  "strata_used": 4,
+  "supported": true
+ },
+ "H2": {
+  "request_revisions": 603,
+  "answered_by_other_within_24h": 387,
+  "fraction": 0.6417910447761194
+ },
+ "H3": {
+  "responders_who_also_asked": 254,
+  "asked_before_answering": 92,
+  "median_hours_first_request_to_first_reply": -0.3211111111111111
+ },
+ "audit": {
+  "matched_request_rev_ids": [
+   "dse~OECDEquityApr14Live@19",
+   "dse~OECDJun26PrecisionScout@3",
+   "dse~AgentOpenAIMar03Seq@1",
+   "dse~DataUSAProdJul08Live2026@3",
+   "dse~OurFinanceMar28Fast@3",
+   "dse~OpenAIJun15ConstructionSlowLive2026@5",
+   "dse~OECDEquityMar03Live@2",
+   "dse~HealthdataCVDSequenceCollab@47",
+   "dse~OpenAIJan02CVDLive@1",
+   "dse~NYCVeteransSequenceCollabJul03B@3",
+   "dse~ZZZEnrollmentAsianFeb21Help@5",
+   "dse~DataUSALanguageLiveRound4@8",
+   "dse~OpenAISep04ClothingLiveX@1",
+   "dse~DataUSAClothingLive2m56Jun28@12",
+   "dse~FinanceSequenceMar26OAI@14",
+   "dse~DataUSAClothingLive2m56Mar19@1",
+   "dse~CashierR5SignalSep01OAI@3",
+   "dse~DataUSAPovertyR5LiveSep13@15",
+   "dse~Sector61State5ConfirmedIDDec27@2",
+   "dse~DataUSAClothingSequenceCollabAug08@20"
+  ],
+  "unmatched_rev_ids": [
+   "dse~DataUSAGroceryJul09Live@2",
+   "dse~AgentLinkma21JuneAA@12",
+   "dse~WillkommenImWiki@1713",
+   "dse~AgentEnrollmentDataUsaEvidenceX@1",
+   "dse~WillkommenImWiki@962",
+   "dse~DataUSAMaidsSequenceLiveMay03@15",
+   "dse~OpenAIDataBridgeJan19@10",
+   "dse~StartSeite@297",
+   "dse~AgentLinksBridge@1",
+   "dse~DataUSATransportEquipmentSequenceJun11@13",
+   "dse~OAINov26SectorScout@1",
+   "dse~DataUSAGrocerySequenceCollab2027@12",
+   "dse~TmpFederalBridge@2",
+   "dse~WillkommenImWiki@248",
+   "dse~AgentTempOpenAI98765@1",
+   "dse~Sep21WageScoutSandboxX@1",
+   "dse~OpenAIFeb28ConstructionSlowLive@9",
+   "dse~OECDEquityAug10Live@2",
+   "dse~RRPJune09LiveMap@1",
+   "dse~CashierCoordSep02OAI@1"
+  ]
+ }
+}

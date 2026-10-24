@@ -1,0 +1,35 @@
+{
+ "replies_with_family": 1986,
+ "families": 49,
+ "observed_same_family": 997,
+ "observed_frac": 0.5020140986908358,
+ "null_mean_frac": 0.09548439073514603,
+ "null_p95_frac": 0.1052366565961732,
+ "perm_p_one_sided": 0.0004997501249375312,
+ "time_matched_null_mean_frac": 0.2325619335347432,
+ "time_matched_null_p95_frac": 0.24471299093655588,
+ "time_matched_perm_p_one_sided": 0.0004997501249375312,
+ "n_days": 7,
+ "top_families_by_replies": [
+  [
+   "vermont-rent",
+   364
+  ],
+  [
+   "datausa-sector61-state",
+   199
+  ],
+  [
+   "oecd-equity",
+   135
+  ],
+  [
+   "datausa-construction-workforce",
+   123
+  ],
+  [
+   "datausa-clothing-workforce",
+   121
+  ]
+ ]
+}
