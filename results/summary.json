@@ -155,11 +155,11 @@
     "seeker_submitted": 16
    }
   },
-  "episodes": 152,
+  "episodes": 216,
   "tokens": {
-   "input": 3305335,
-   "cached": 772267,
-   "output": 144329
+   "input": 5336528,
+   "cached": 1247747,
+   "output": 239901
   }
  },
  "gpt-6-luna": {
@@ -318,11 +318,11 @@
     "seeker_submitted": 16
    }
   },
-  "episodes": 152,
+  "episodes": 216,
   "tokens": {
-   "input": 4500912,
-   "cached": 1658456,
-   "output": 250431
+   "input": 7404071,
+   "cached": 2945535,
+   "output": 433138
   }
  },
  "gpt-5.4-mini": {

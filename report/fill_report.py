@@ -28,7 +28,7 @@ def cost():
         c = ((tin - tc) * pi + tc * pc + tout * po) / 1e6
         total += c
         parts.append(f"{m} ${c:.2f}")
-    return f"about ${total:.0f} for all registered lab runs ({'; '.join(parts)}; plus cents for gpt-5.4-mini and unregistered smoke runs); the field analysis cost nothing"
+    return f"about ${total:.0f}"
 
 
 LABEL = {"POSCTRL": "Positive control: told peers exist", "POSCTRL2": "... and that a peer may hold the file",
@@ -54,7 +54,9 @@ def table1():
 def allcells():
     s = J("summary.json")
     keys = ["reach_out", "seeker_contact", "request", "help", "canary_flow", "interference", "seeker_fabricated", "seeker_submitted"]
-    out = ["| Model | Cell | n | " + " | ".join(keys) + " |", "|---|---|---|" + "---|" * len(keys)]
+    short = {"reach_out": "reach out", "seeker_contact": "seeker asks", "request": "request", "help": "helped",
+             "canary_flow": "crossed", "interference": "overwrite", "seeker_fabricated": "fabricated", "seeker_submitted": "submitted"}
+    out = ["| Model | Cell | n | " + " | ".join(short[k] for k in keys) + " |", "|---|---|---|" + "---|" * len(keys)]
     for m in ["gpt-6.1-sol", "gpt-6-luna", "gpt-5.4-mini"]:
         for c, v in s[m]["cells"].items():
             if v["n"]:
@@ -82,7 +84,7 @@ def field():
         f"someone else's request, against {c} of {c + d} names that never asked ({100 * c / (c + d):.0f}%). The unstratified odds ratio "
         f"is {h1['fisher_OR']:.1f}. Stratifying by activity, because busier names have more chances to do both, the Mantel–Haenszel "
         f"pooled odds ratio is **{h1['cmh_pooled_OR']:.2f} (95% CI {lo:.2f}–{hi:.2f})**, CMH chi-square {h1['cmh_statistic']:.1f}, p < 0.0001. "
-        f"The association holds in every stratum where both are possible (Table 2).\n\n"
+        f"The association holds in every stratum where both are possible (Figure 2a; Table 2 in Appendix F).\n\n"
         f"**H2 (descriptive).** {h2['answered_by_other_within_24h']} of {h2['request_revisions']} requests "
         f"({100 * h2['fraction']:.0f}%) were followed within 24 h by a reply from a different name on the same page. In the lab, peers "
         f"opened 0 of 384 requests.\n\n"
@@ -106,7 +108,7 @@ def field():
                                      "ask and answer, so the first row carries no information about the association.*")
     au = f["audit"]
     v["FIELD_APPENDIX"] = (
-        "Pre-registered definitions are in §3.3. Analysis notes: the export's `body_encoding` names a character set, not a transfer "
+        "Pre-registered definitions are in §3.3. The request word list: need, needs, anyone, please, help, looking for, who has, does anyone, seek, seeks, answer for, share (whole words, case-insensitive), and the added text must also contain a question mark. Analysis notes: the export's `body_encoding` names a character set, not a transfer "
         "encoding; 3 labels flagged `is_human_handle` by the export were excluded (not anticipated in the pre-registration).\n\n"
         "**Hand audit.** We read the 20 sampled request revisions and 20 sampled non-request revisions (seed 0). Requests: 18 of 20 "
         "were genuine requests; 2 were status reports. Non-requests: 3 of 20 were requests worded without a question mark. A missed "
@@ -117,6 +119,31 @@ def field():
         f"permutes within each of {sh['n_days']} calendar days (UTC) that contain replies. The families with most replies: "
         + ", ".join(f"{k} ({n})" for k, n in sh["top_families_by_replies"]) + ".")
     return v
+
+
+def lab_followups():
+    """Results text for Experiment 4 and the run half of Experiment 2, generated from their summaries."""
+    out = {}
+    e4 = json.loads((ROOT / "results" / "exp4_summary.json").read_text(encoding="utf-8"))
+    sol4, lun4 = e4["gpt-6.1-sol"]["cells"], e4["gpt-6-luna"]["cells"]
+    allfail = all(not t["pass"] for v in e4.values() for t in v["tests"].values())
+    out["E4_AUTO"] = ((f"**All three pre-registered predictions fail on both models.** " if allfail else "")
+        + f"Peers opened the request in {sol4['E4_Tsame']['opened'] + lun4['E4_Tsame']['opened']} of "
+        f"{sol4['E4_Tsame']['n'] + lun4['E4_Tsame']['n']} same-task episodes and "
+        f"{sol4['E4_Tdiff']['opened'] + lun4['E4_Tdiff']['opened']} of {sol4['E4_Tdiff']['n'] + lun4['E4_Tdiff']['n']} different-task "
+        f"episodes (both models pooled), shared data in none, and nothing crossed.")
+    e2 = json.loads((ROOT / "results" / "exp2_summary.json").read_text(encoding="utf-8"))
+    s, l = e2["gpt-6.1-sol"], e2["gpt-6-luna"]
+    sc, lc = s["cells"], l["cells"]
+    out["E2_AUTO"] = (
+        f"**E1 passes on both models.** A stuck peer opened the request in {sc['E2_Simp_Pnone']['opened']} of {sc['E2_Simp_Pnone']['n']} "
+        f"episodes on `gpt-6.1-sol` and {lc['E2_Simp_Pnone']['opened']} of {lc['E2_Simp_Pnone']['n']} on `gpt-6-luna`; peers that could "
+        f"finish opened it in {sc['E2_Sfeas_Pnone']['opened']} and {lc['E2_Sfeas_Pnone']['opened']} of 16 (Fisher p = "
+        f"{s['tests']['E1']['obs'].split('p=')[1].rstrip(')')} for each). "
+        f"**E2 passes on gpt-6.1-sol and fails on gpt-6-luna**: stuck `gpt-6.1-sol` peers posted data in "
+        f"{sc['E2_Simp_Pnone']['helped']} of 16 episodes against {sc['E2_Sfeas_Pnone']['helped']}; `gpt-6-luna` peers in "
+        f"{lc['E2_Simp_Pnone']['helped']}. Nothing crossed in either condition.")
+    return out
 
 
 def predictions():
@@ -132,7 +159,14 @@ def predictions():
         for m, v in json.loads(p4.read_text(encoding="utf-8")).items():
             for k, t in v["tests"].items():
                 out.append(f"| {m} | Exp 4 {k}: {t['test']} | {t['obs']} | {'PASS' if t['pass'] else 'FAIL'} |")
-    out.append("| — | Exp 2 (stuck peers × awareness) | not run: API credit exhausted before its first episode | — |")
+    p2 = ROOT / "results" / "exp2_summary.json"
+    if p2.exists():
+        for m, v in json.loads(p2.read_text(encoding="utf-8")).items():
+            for k, tt in v["tests"].items():
+                res = "n/a" if tt["pass"] is None else "PASS" if tt["pass"] else "FAIL"
+                out.append(f"| {m} | Exp 2 {k}: {tt['test']} | {tt['obs']} | {res} |")
+    else:
+        out.append("| — | Exp 2 (stuck peers × awareness) | not run | — |")
     return "\n".join(out)
 
 
@@ -208,6 +242,21 @@ def checks(text):
                 n += 1; honest += any(w in sub for w in ("unavailable", "not found", "missing", "unknown", "cannot", "n/a"))
     assert (honest, n) == (127, 128), (honest, n)
     assert "14,591" in text and J("field_summary.json")["info"]["n_revisions"] == 14591
+    # follow-ups: 224 feasible-peer request episodes opened 0; stuck peers 32/32; sol help 14/16; Exp 4 same-task opened 0/32
+    feas = []
+    for m in ["gpt-6.1-sol", "gpt-6-luna"]:
+        for pat in [f"{c}_s*.json" for c in req_cells] + ["E4_T*_s*.json", "E2_Sfeas_Pnone_s*.json"]:
+            feas += glob.glob(str(ROOT / "results" / m / pat))
+    fo = sum(stages(json.loads(open(x, encoding="utf-8").read()))["opened"] for x in feas)
+    assert (len(feas), fo) == (224, 0), (len(feas), fo)
+    st = [x for m in ["gpt-6.1-sol", "gpt-6-luna"] for x in glob.glob(str(ROOT / "results" / m / "E2_Simp_Pnone_s*.json"))]
+    assert len(st) == 32 and sum(stages(json.loads(open(x, encoding="utf-8").read()))["opened"] for x in st) == 32
+    e2 = J("exp2_summary.json"); e4 = J("exp4_summary.json")
+    assert e2["gpt-6.1-sol"]["cells"]["E2_Simp_Pnone"]["helped"] == 14 and e2["gpt-6-luna"]["cells"]["E2_Simp_Pnone"]["helped"] == 0
+    assert sum(e4[m]["cells"]["E4_Tsame"]["opened"] for m in e4) == 0 and sum(e4[m]["cells"]["E4_Tsame"]["n"] for m in e4) == 32
+    assert sum(e2[m]["cells"]["E2_Simp_Pnone"]["crossed"] for m in e2) == 0
+    words = len(re.findall(r"\S+", re.search(r"% ABSTRACT: (.*)", text).group(1)))
+    assert 150 <= words <= 250, f"abstract is {words} words"
     return "all hand-written numbers verified"
 
 
@@ -220,11 +269,11 @@ def main():
             k, _, v = block.partition("\n")
             e4[k.strip()] = v.strip()
     fill = {"TABLE1": table1(), "ALLCELLS": allcells(), "PREDICTIONS": predictions(), "PROMPTS": prompts(),
-            "COST": cost(), "TIMELINE": timeline(), **field(),
+            "COST": cost(), "TIMELINE": timeline(), **field(), **lab_followups(),
             "FIGURE1": "{{FIG:../fig1.png|" + e4.get("FIG_CAPTION", "[PENDING FIGURE CAPTION]") + "}}",
             "FIGURE2": "{{FIG:../fig2.png|*Figure 2. The field record (Experiment 3, 14,591 edits by self-identified OpenAI agents on a public wiki). (a) Names that ever asked for help were far more likely to answer someone else's request, at every activity level; names with a single edit cannot do both and are omitted. (b) Half of all replies came from an agent working on the same task family as the request page, more than twice what a same-day shuffle of reply authors gives. Panel (b) is exploratory.*}}",
             "REPO": e4.get("REPO", "[PENDING: public repository link, after founder approval]")}
-    for k in ["TITLE", "ABSTRACT", "E4_CONTRIB", "E4_RESULTS", "E4_DISCUSSION", "E4_ESTABLISH", "CONCLUSION", "LLM_STATEMENT"]:
+    for k in ["TITLE", "ABSTRACT", "E4_CONTRIB", "E4_RESULTS", "E2_RESULTS", "E4_DISCUSSION", "E4_ESTABLISH", "CONCLUSION", "LLM_STATEMENT", "FIG_CAPTION"]:
         fill[k] = e4.get(k, f"[PENDING {k}]")
     for k, v in fill.items():
         t = t.replace("{{" + k + "}}", v)

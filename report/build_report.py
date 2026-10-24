@@ -61,10 +61,24 @@ def header(doc, title, author, affil, abstract):
 
 
 def strip_guidance(doc):
-    """Remove everything after the header table (info box + guidance), keep sectPr."""
+    """Remove everything after the header table (info box + guidance), keep sectPr.
+    Also drop empty paragraphs that trail the abstract inside the header table: they are
+    invisible but push the table's bottom edge down and force the Introduction to page 2."""
     body = doc.element.body
     kids = list(body)
     first_tbl = next(i for i, e in enumerate(kids) if e.tag.endswith("}tbl"))
+    hdr = kids[first_tbl]
+    last_tc = [e for e in hdr.iter() if e.tag.endswith("}tc")][-1] if False else None
+    rows = [e for e in hdr if e.tag.endswith("}tr")]
+    for tc in [c for c in rows[-1] if c.tag.endswith("}tc")]:
+        items = list(tc)
+        last_tbl = max((i for i, e in enumerate(items) if e.tag.endswith("}tbl")), default=None)
+        if last_tbl is None:
+            continue
+        trailing = [e for e in items[last_tbl + 1:] if e.tag.endswith("}p")
+                    and not "".join(x.text or "" for x in e.iter() if x.tag.endswith("}t")).strip()]
+        for e in trailing[:-1] if len(trailing) > 1 else []:
+            tc.remove(e)  # a cell must keep at least one paragraph after a table
     for e in kids[first_tbl + 1:]:
         if not e.tag.endswith("}sectPr"):
             body.remove(e)
@@ -126,11 +140,17 @@ def table(doc, rows):
     t.autofit = False
     _borders(t)
     total = 6.5
-    first = 2.3 if len(hdr) > 3 else total / len(hdr)
-    rest = (total - first) / max(1, len(hdr) - 1)
+    # width per column, proportional to its longest token (headers wrap at spaces, so count words not whole strings)
+    need = []
+    for j in range(len(hdr)):
+        col = [hdr[j]] + [r[j] for r in body if j < len(r)]
+        longest_word = max(len(w) for c in col for w in (re.sub(r"[*`]", "", c).split() or [""]))
+        longest_cell = max(len(re.sub(r"[*`]", "", c)) for c in col[1:]) if body else longest_word
+        need.append(max(7, longest_word + 1, min(longest_cell, 34)))
+    scale = total / sum(need)
     for j in range(len(hdr)):
         for cell in t.columns[j].cells:
-            cell.width = Inches(first if j == 0 else rest)
+            cell.width = Inches(need[j] * scale)
     for i, r in enumerate([hdr] + body):
         for j, v in enumerate(r):
             c = t.cell(i, j); c.text = ""
@@ -166,7 +186,7 @@ def build():
         elif l.startswith("{{FIG:"):
             path, cap = l[6:-2].split("|", 1)
             p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            p.add_run().add_picture(str(HERE / path), width=Inches(6.4))
+            p.add_run().add_picture(str(HERE / path), width=Inches(5.6))
             para(doc, cap, size=9, space_after=8)
         elif l.startswith("- "):
             para(doc, "•  " + l[2:], indent=0.25, space_after=2)

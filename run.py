@@ -178,6 +178,9 @@ def run_responses_episode(model, ep):
 def specs(which, seeds):
     if which == "posctrl":
         return [(False, False, False, 1, s) for s in range(100, 100 + seeds)]
+    if which == "exp2half":  # Amendment 5: Experiment 2's P = none cells only
+        return [dict(feasible=False, request=True, rule=False, posctrl=0, seed=s, holders_feasible=h, exp2=True)
+                for h in (True, False) for s in range(500, 500 + seeds)]
     if which == "exp4":
         return [dict(feasible=False, request=True, rule=False, posctrl=0, seed=s, shared_task=st)
                 for st in (False, True) for s in range(600, 600 + seeds)]
@@ -194,7 +197,7 @@ def specs(which, seeds):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
-    ap.add_argument("--which", choices=["posctrl", "posctrl2", "posctrl3", "grid", "exp2", "exp4"], required=True)
+    ap.add_argument("--which", choices=["posctrl", "posctrl2", "posctrl3", "grid", "exp2", "exp2half", "exp4"], required=True)
     ap.add_argument("--seeds", type=int, default=8)
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--smoke", action="store_true", help="one unregistered seed (999) into results_smoke/")

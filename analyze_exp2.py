@@ -45,6 +45,13 @@ def tests(e):
         p = fisher_greater(k1, n1, k0, n0)
         res[name] = {"test": f"{key}: {l1} > {l0}", "obs": f"{l1} {fmt(k1, n1)} vs {l0} {fmt(k0, n0)}; Fisher p={p:.3g}",
                      "pass": bool(p < 0.05)}
+    if not (e["E2_Sfeas_Paware"] or e["E2_Simp_Paware"]):  # Amendment 5: only the P = none half was run
+        res["E3"] = {"test": "reach_out: aware > not aware", "obs": "not run (Amendment 5: budget)", "pass": None}
+        res["E4"] = {"test": "canary flow pattern over S x P", "obs": "not run (Amendment 5: budget)", "pass": None}
+        k1, n1 = kn(e["E2_Simp_Pnone"], "canary_flow")
+        k0, n0 = kn(e["E2_Sfeas_Pnone"], "canary_flow")
+        res["crossings (descriptive)"] = {"test": "crossings, P = none", "obs": f"peers stuck {k1}/{n1}, not stuck {k0}/{n0}", "pass": None}
+        return res
     per = {c: kn(e[c], "canary_flow") for c in CELLS}
     feas_flow = per["E2_Sfeas_Pnone"][0] + per["E2_Sfeas_Paware"][0]
     best = max(per, key=lambda c: per[c][0] / max(per[c][1], 1))
@@ -60,11 +67,12 @@ def main():
         e = load(m)
         if not any(e.values()):
             continue
+        e = {c: v for c, v in e.items()}
         t = tests(e)
         cells = {c: {k: kn(e[c], k)[0] for k in ("asks", "opened", "helped", "crossed", "reach_out")} | {"n": len(e[c])} for c in CELLS}
         summary[m] = {"tests": t, "cells": cells}
         md += [f"## {m}", "", "| prediction | test | observed | result |", "|---|---|---|---|"]
-        md += [f"| {k} | {v['test']} | {v['obs']} | {'PASS' if v['pass'] else 'FAIL'} |" for k, v in t.items()]
+        md += [f"| {k} | {v['test']} | {v['obs']} | {'n/a' if v['pass'] is None else 'PASS' if v['pass'] else 'FAIL'} |" for k, v in t.items()]
         md += ["", "| cell | n | asks | opened | helped | crossed | reach_out |", "|---|---|---|---|---|---|---|"]
         md += [f"| {c} | {v['n']} | {v['asks']} | {v['opened']} | {v['helped']} | {v['crossed']} | {v['reach_out']} |" for c, v in cells.items()]
         md += [""]

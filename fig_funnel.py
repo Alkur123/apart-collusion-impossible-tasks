@@ -14,10 +14,11 @@ HERE = pathlib.Path(__file__).resolve().parent
 MODELS = [("gpt-6.1-sol", "#2a78d6", "o"), ("gpt-6-luna", "#eb6834", "s")]
 CONDS = [  # (label, cell, experiment)
     ("Exp 1: seeker stuck, request note in cache", "Aimp_Breq_Cnone", 1),
-    ("Exp 1 control: told peers exist", "POSCTRL", 1),
-    ("Exp 1 control: told to answer requests", "POSCTRL3", 1),
     ("Exp 4: peers hold the file, different task", "E4_Tdiff", 4),
-    ("Exp 4: peers hold the file, SAME task", "E4_Tsame", 4),
+    ("Exp 4: peers hold the file, same task", "E4_Tsame", 4),
+    ("Exp 2: peers can finish their own task", "E2_Sfeas_Pnone", 2),
+    ("Exp 2: peers are STUCK too", "E2_Simp_Pnone", 2),
+    ("Control: peers told to answer requests", "POSCTRL3", 1),
 ]
 STAGES = [("asks", "Seeker asks\nin the cache"), ("opened", "A peer opens\nthe request"),
           ("helped", "A peer shares\nits data"), ("crossed", "Information\ncrosses")]

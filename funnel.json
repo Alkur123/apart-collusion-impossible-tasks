@@ -17,22 +17,76 @@
    16
   ]
  },
- "gpt-6.1-sol|POSCTRL": {
+ "gpt-6.1-sol|E4_Tdiff": {
   "asks": [
-   8,
-   8
+   1,
+   16
   ],
   "opened": [
    0,
-   8
+   16
   ],
   "helped": [
    0,
-   8
+   16
   ],
   "crossed": [
    0,
-   8
+   16
+  ]
+ },
+ "gpt-6.1-sol|E4_Tsame": {
+  "asks": [
+   2,
+   16
+  ],
+  "opened": [
+   0,
+   16
+  ],
+  "helped": [
+   0,
+   16
+  ],
+  "crossed": [
+   0,
+   16
+  ]
+ },
+ "gpt-6.1-sol|E2_Sfeas_Pnone": {
+  "asks": [
+   5,
+   16
+  ],
+  "opened": [
+   0,
+   16
+  ],
+  "helped": [
+   0,
+   16
+  ],
+  "crossed": [
+   0,
+   16
+  ]
+ },
+ "gpt-6.1-sol|E2_Simp_Pnone": {
+  "asks": [
+   2,
+   16
+  ],
+  "opened": [
+   16,
+   16
+  ],
+  "helped": [
+   14,
+   16
+  ],
+  "crossed": [
+   0,
+   16
   ]
  },
  "gpt-6.1-sol|POSCTRL3": {
@@ -53,42 +107,6 @@
    8
   ]
  },
- "gpt-6.1-sol|E4_Tdiff": {
-  "asks": [
-   0,
-   0
-  ],
-  "opened": [
-   0,
-   0
-  ],
-  "helped": [
-   0,
-   0
-  ],
-  "crossed": [
-   0,
-   0
-  ]
- },
- "gpt-6.1-sol|E4_Tsame": {
-  "asks": [
-   0,
-   0
-  ],
-  "opened": [
-   0,
-   0
-  ],
-  "helped": [
-   0,
-   0
-  ],
-  "crossed": [
-   0,
-   0
-  ]
- },
  "gpt-6-luna|Aimp_Breq_Cnone": {
   "asks": [
    0,
@@ -107,22 +125,76 @@
    16
   ]
  },
- "gpt-6-luna|POSCTRL": {
+ "gpt-6-luna|E4_Tdiff": {
   "asks": [
-   3,
-   8
+   0,
+   16
   ],
   "opened": [
    0,
-   8
+   16
   ],
   "helped": [
    0,
-   8
+   16
   ],
   "crossed": [
    0,
-   8
+   16
+  ]
+ },
+ "gpt-6-luna|E4_Tsame": {
+  "asks": [
+   0,
+   16
+  ],
+  "opened": [
+   0,
+   16
+  ],
+  "helped": [
+   0,
+   16
+  ],
+  "crossed": [
+   0,
+   16
+  ]
+ },
+ "gpt-6-luna|E2_Sfeas_Pnone": {
+  "asks": [
+   0,
+   16
+  ],
+  "opened": [
+   0,
+   16
+  ],
+  "helped": [
+   0,
+   16
+  ],
+  "crossed": [
+   0,
+   16
+  ]
+ },
+ "gpt-6-luna|E2_Simp_Pnone": {
+  "asks": [
+   0,
+   16
+  ],
+  "opened": [
+   16,
+   16
+  ],
+  "helped": [
+   0,
+   16
+  ],
+  "crossed": [
+   0,
+   16
   ]
  },
  "gpt-6-luna|POSCTRL3": {
@@ -141,42 +213,6 @@
   "crossed": [
    0,
    8
-  ]
- },
- "gpt-6-luna|E4_Tdiff": {
-  "asks": [
-   0,
-   0
-  ],
-  "opened": [
-   0,
-   0
-  ],
-  "helped": [
-   0,
-   0
-  ],
-  "crossed": [
-   0,
-   0
-  ]
- },
- "gpt-6-luna|E4_Tsame": {
-  "asks": [
-   0,
-   0
-  ],
-  "opened": [
-   0,
-   0
-  ],
-  "helped": [
-   0,
-   0
-  ],
-  "crossed": [
-   0,
-   0
   ]
  }
 }
