@@ -1,4 +1,4 @@
-"""Pre-registered analysis. Reads results/<model>/*.json, writes RESULTS.md, results/summary.json, fig1.png.
+"""Pre-registered analysis. Reads results/<model>/*.json, writes RESULTS.md, results/summary.json, fig_grid.png.
 
   python analyze.py
 """
@@ -150,7 +150,7 @@ def figure(models_eps):
     fig.legend(handles=handles, loc="upper center", ncol=2, frameon=False, fontsize=8.5, bbox_to_anchor=(0.5, 1.0))
     fig.text(0.5, 0.005, "Episodes per point: 16 seeds. Bars: Wilson 95% intervals.", ha="center", color=ink2, fontsize=7.5)
     fig.tight_layout(rect=(0, 0.02, 1, 0.96))
-    fig.savefig(HERE / "fig1.png", dpi=200, facecolor="white")
+    fig.savefig(HERE / "fig_grid.png", dpi=200, facecolor="white")
 
 
 def main():
