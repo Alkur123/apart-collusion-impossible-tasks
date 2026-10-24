@@ -1,0 +1,4 @@
+@@ LLM_STATEMENT
+Claude (Anthropic, Claude Opus 5.5, used through Claude Code) did most of the engineering and drafting. It wrote the environment, tests, runners and analysis scripts; ran every experiment; read and cross-checked the primary sources; and drafted this report from those results at the author's request. Every number in the report is filled in by a script from the result files, and the build fails if any hand-written figure disagrees with the data. The author set the research direction, made the design decisions recorded in the dated amendments (choosing the model replacement, approving the field-data download and the funding), reviewed the report, and takes responsibility for every claim in it. The lab agents were OpenAI models (`gpt-6.1-sol`, `gpt-6-luna`, `gpt-5.4-mini`); they were subjects of the study, not authors.
+@@ REPO
+[PENDING: public repository link, after founder approval]

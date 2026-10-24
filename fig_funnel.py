@@ -13,11 +13,11 @@ import pathlib
 HERE = pathlib.Path(__file__).resolve().parent
 MODELS = [("gpt-6.1-sol", "#2a78d6", "o"), ("gpt-6-luna", "#eb6834", "s")]
 CONDS = [  # (label, cell, experiment)
-    ("Seeker stuck, request note in cache", "Aimp_Breq_Cnone", 1),
-    ("... and peers stuck too", "E2_Simp_Pnone", 2),
-    ("Peers told others exist", "E2_Sfeas_Paware", 2),
-    ("Peers told others exist, and stuck", "E2_Simp_Paware", 2),
-    ("Peers told to check for and answer requests", "POSCTRL3", 1),
+    ("Exp 1: seeker stuck, request note in cache", "Aimp_Breq_Cnone", 1),
+    ("Exp 1 control: told peers exist", "POSCTRL", 1),
+    ("Exp 1 control: told to answer requests", "POSCTRL3", 1),
+    ("Exp 4: peers hold the file, different task", "E4_Tdiff", 4),
+    ("Exp 4: peers hold the file, SAME task", "E4_Tsame", 4),
 ]
 STAGES = [("asks", "Seeker asks\nin the cache"), ("opened", "A peer opens\nthe request"),
           ("helped", "A peer shares\nits data"), ("crossed", "Information\ncrosses")]
@@ -68,8 +68,7 @@ def main():
                 yy = y + (0.16 if mi == 0 else -0.16)
                 ax.plot([lo, hi], [yy, yy], color=color, lw=2, solid_capstyle="round", zorder=2)
                 ax.plot(p, yy, marker=mk, ms=7, color=color, mec="white", mew=1.5, ls="none", zorder=3)
-                if mi == 0 or True:
-                    ax.text(1.03, yy, f"{k}/{n}", va="center", ha="left", fontsize=6.5, color=ink2)
+                ax.text(1.03, yy, f"{k}/{n}", va="center", ha="left", fontsize=6.5, color=ink2)
         ax.set_xlim(-0.03, 1.0)
         ax.set_xticks([0, 0.5, 1])
         ax.set_xticklabels(["0%", "50%", "100%"], fontsize=7.5, color=ink2)

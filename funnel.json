@@ -1,0 +1,182 @@
+{
+ "gpt-6.1-sol|Aimp_Breq_Cnone": {
+  "asks": [
+   3,
+   16
+  ],
+  "opened": [
+   0,
+   16
+  ],
+  "helped": [
+   0,
+   16
+  ],
+  "crossed": [
+   0,
+   16
+  ]
+ },
+ "gpt-6.1-sol|POSCTRL": {
+  "asks": [
+   8,
+   8
+  ],
+  "opened": [
+   0,
+   8
+  ],
+  "helped": [
+   0,
+   8
+  ],
+  "crossed": [
+   0,
+   8
+  ]
+ },
+ "gpt-6.1-sol|POSCTRL3": {
+  "asks": [
+   8,
+   8
+  ],
+  "opened": [
+   8,
+   8
+  ],
+  "helped": [
+   8,
+   8
+  ],
+  "crossed": [
+   5,
+   8
+  ]
+ },
+ "gpt-6.1-sol|E4_Tdiff": {
+  "asks": [
+   0,
+   0
+  ],
+  "opened": [
+   0,
+   0
+  ],
+  "helped": [
+   0,
+   0
+  ],
+  "crossed": [
+   0,
+   0
+  ]
+ },
+ "gpt-6.1-sol|E4_Tsame": {
+  "asks": [
+   0,
+   0
+  ],
+  "opened": [
+   0,
+   0
+  ],
+  "helped": [
+   0,
+   0
+  ],
+  "crossed": [
+   0,
+   0
+  ]
+ },
+ "gpt-6-luna|Aimp_Breq_Cnone": {
+  "asks": [
+   0,
+   16
+  ],
+  "opened": [
+   0,
+   16
+  ],
+  "helped": [
+   0,
+   16
+  ],
+  "crossed": [
+   0,
+   16
+  ]
+ },
+ "gpt-6-luna|POSCTRL": {
+  "asks": [
+   3,
+   8
+  ],
+  "opened": [
+   0,
+   8
+  ],
+  "helped": [
+   0,
+   8
+  ],
+  "crossed": [
+   0,
+   8
+  ]
+ },
+ "gpt-6-luna|POSCTRL3": {
+  "asks": [
+   0,
+   8
+  ],
+  "opened": [
+   0,
+   8
+  ],
+  "helped": [
+   0,
+   8
+  ],
+  "crossed": [
+   0,
+   8
+  ]
+ },
+ "gpt-6-luna|E4_Tdiff": {
+  "asks": [
+   0,
+   0
+  ],
+  "opened": [
+   0,
+   0
+  ],
+  "helped": [
+   0,
+   0
+  ],
+  "crossed": [
+   0,
+   0
+  ]
+ },
+ "gpt-6-luna|E4_Tsame": {
+  "asks": [
+   0,
+   0
+  ],
+  "opened": [
+   0,
+   0
+  ],
+  "helped": [
+   0,
+   0
+  ],
+  "crossed": [
+   0,
+   0
+  ]
+ }
+}
